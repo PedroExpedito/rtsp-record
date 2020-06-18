@@ -4,25 +4,43 @@
 #func: Record and save RTSP video
 
 DATA=`date | sed 's/ /:/g'`
-EXECTIME=11
+EXECTIME=20
 RODEI=0
-HORAS=24
+HORAS=4
 DIRECTORY="$HOME"
 PASSWORD=$RTSPPASSOWOD #sua senha de RTSP aqui no caso sem o $ é porque estou usando variavel de ambiente
 echo $DIRECTORY
 while :
 do
 
-RODEI=$(($RODEI+1))
+  RODEI=$(($RODEI+1))
+  DATA=`date | sed 's/ /:/g'`
 
-echo $RODEI
+  echo $RODEI
 
-#if [ $RODEI -gt $HORAS  ]; then
-#  echo "Movendo Arquivos.."
+  if [ $RODEI -gt $HORAS  ]; then
+    echo "Movendo Arquivos.."
+    HOJE=`date +%d`
+    MES=`date +%b`
+    ANO=`date +%G`
 
-#else
-  echo "Não"
-#fi
+    mkdir -p $DIRECTORY/record/cam1/$ANO/$MES/$HOJE
+    mkdir -p $DIRECTORY/record/cam2/$ANO/$MES/$HOJE
+    mkdir -p $DIRECTORY/record/cam3/$ANO/$MES/$HOJE
+    mkdir -p $DIRECTORY/record/cam4/$ANO/$MES/$HOJE
+
+    mv ~/record/cam1/*.mp4 ~/record/cam1/$ANO/$MES/$HOJE
+    mv ~/record/cam2/*.mp4 ~/record/cam2/$ANO/$MES/$HOJE
+    mv ~/record/cam3/*.mp4 ~/record/cam3/$ANO/$MES/$HOJE
+    mv ~/record/cam4/*.mp4 ~/record/cam4/$ANO/$MES/$HOJE
+
+    RODEI=$(($RODEI-$HORAS))
+
+    clear
+
+  else
+    echo "Faltando para mover aquivos $(($HORAS-$RODEI))"
+  fi
 
 #Camera 1 titiu
 cvlc -vvv  rtsp://admin:$PASSWORD@192.168.1.100:554/onvif1\

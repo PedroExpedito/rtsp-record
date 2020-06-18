@@ -1,0 +1,104 @@
+Uso: date [OPÇÃO]... [+FORMATO]
+ ou: date [-u|--utc|--universal] [MMDDhhmm[[CC]YY][.ss]]
+Exibe o horário atual no FORMATO dado ou define a data do sistema.
+
+Argumentos obrigatórios para opções longas também o são para opções curtas.
+  -d, --date=TEXTO           exibe a hora descrita no TEXTO, não a de "agora"  -f, --file=ARQDATA         como --date; uma vez para cada linha de ARQDATA
+      --verbose              anota a data analisada e
+                              e avisa sobre uso questionável à saída padrão
+  -f, --file=ARQDATA         como --date; uma vez para cada linha de ARQDATA
+  -I[FMT], --iso-8601[=FMT]  emite a data e a hora no formato ISO 8601.
+                               FMT="date" para apenas data (padrão),
+                               "hours", "minutes", "seconds" ou "ns"
+                               para data e horário com a precisão indicada
+                               Exemplo: 2006-08-14T02:34:56-06:00
+  -R, --rfc-email            emite a data e hora no formato da RFC 5322.
+                               Exemplo: Mon, 14 Aug 2006 02:34:56 -0600
+      --rfc-3339=FMT         emite a data e hora no formato da RFC 3339.
+                              FMT="date", "seconds" ou "ns" com a precisão
+                              indicada.
+                              Exemplo: 2006-08-14 02:34:56-06:00
+  -r, --reference=ARQUIVO    exibe o horário da última modificação do ARQUIVO
+  -s, --set=TEXTO            define a hora para a descrita por TEXTO
+  -u, --utc, --universal     emite ou define o Tempo Universal Coordenado (UTC)
+      --help     mostra esta ajuda e sai
+      --version  informa a versão e sai
+
+FORMATO controla a saída. As sequências interpretadas são:
+
+  %%   um % literal
+  %a   nome abreviado do dia de semana da localidade (por exemplo, Dom)
+  %A   nome completo do dia de semana na localidade (por exemplo, Sábado)
+  %b   nome abreviado do mês na localidade (por exemplo, Jan)
+  %B   nome completo do mês na localidade (por exemplo, Janeiro)
+  %c   data e hora na localidade (por exemplo, Qui 03 Mar 2005 23:05:25 BRT)
+  %C   século; como %Y, mas omite os dois últimos dígitos (por exemplo, 20)
+  %d   dia do mês (por exemplo, 01)
+  %D   data no formato estado-unidense; igual a %m/%d/%y
+  %e   dia do mês, preenchido com espaço; o mesmo que %_d
+  %F   data completa; o mesmo que %Y-%m-%d
+  %g   os últimos dois dígitos do ano do número ISO da semana (veja %G)
+  %G   ano do número ISO da semana ISO (veja %V); normalmente útil só com %V
+  %h   o mesmo que %b
+  %H   hora (00..23)
+  %I   hora (01..12)
+  %j   dia do ano (001..366)
+  %k   hora, alinhado com espaço extra ( 0..23); igual a %_H
+  %l   hora, alinhado com espaço extra ( 1..12); igual a %_I
+  %m   mês (01..12)
+  %M   minuto (00..59)
+  %n   um caractere de nova linha
+  %N   nanossegundos (000000000..999999999)
+  %p   o equivalente na localidade para AM ou PM; em branco se desconhecido
+  %P   como %p, mas em minúsculo
+  %q   trimestre de ano (1..4)
+  %r   a hora no relógio de 12 horas na localidade (por exemplo, 11:11:04 PM)
+  %R   hora e minuto no estilo 24 horas; o mesmo que %H:%M
+  %s   segundos desde 1970-01-01 00:00:00 UTC
+  %S   segundo (00..60)
+  %t   uma tabulação
+  %T   as horas; o mesmo que %H:%M:%S
+  %u   dia da semana (1..7); 1 é segunda-feira
+  %U   número da semana no ano, sendo domingo o início da semana (00..53)
+  %V   número ISO da semana, sendo segunda-feira o início da semana (01..53)
+  %w   dia da semana (0..6); 0 é domingo
+  %W   número da semana no ano, sendo segunda-feira o início da semana (00..53)
+  %x   representação da data na localidade (por exemplo, 31-12-1999)
+  %X   representação da hora na localidade (por exemplo, 23:13:48)
+  %y   os últimos dois dígitos do ano (00..99)
+  %Y   ano
+  %z   fuso horário numérico +hhmm (por exemplo, -0400)
+  %:z  fuso horário numérico +hh:mm (por exemplo, -04:00)
+  %::z  fuso horário numérico +hh:mm:ss (por exemplo, -04:00:00)
+  %:::z  fuso horário numérico com : para a precisão necessária
+           (por exemplo, -04, +05:30)
+  %Z   abreviação alfabética do fuso horário (por exemplo, BRT)
+
+Por padrão, campos numéricos de data são preenchidos com zeros.
+Os seguintes sinalizadores opcionais podem ser usados após "%":
+
+  -  (hífen) não preenche o campo
+  _  (sublinhado) preenche com espaços
+  0  (zero) preenche com zeros
+  ^  usa maiúsculas, se possível
+  #  inverte maiúsculas com minúsculas (e vice-versa), se possível
+
+Depois de qualquer sinalizador pode haver uma largura de campo opcional,
+como um número decimal; então, um modificador também opcional, que pode ser
+ E para usar as representações alternativas da localidade, se disponível, ou
+ O para usar os símbolos numéricos alternativos da localidade, se disponível.
+
+Exemplos:
+Converte segundos desde época inicial (1970-01-01 UTC) para uma data
+  $ date --date='@2147483647'
+
+Mostra hora na costa oeste dos EUA (use tzselect(1) para saber o fuso horário)
+  $ TZ='America/Los_Angeles' date
+
+Mostra o horário local para sexta-feira às 09h da manhã na costa oeste dos EUA
+  $ date --date='TZ="America/Los_Angeles" 09:00 next Fri'
+
+Página de ajuda do GNU coreutils: <https://www.gnu.org/software/coreutils/>
+Relate erros de tradução do date: <https://translationproject.org/team/pt_BR.html>
+Documentação completa em: <https://www.gnu.org/software/coreutils/date>
+ou disponível localmente via: info "(coreutils) date invocation"

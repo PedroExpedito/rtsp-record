@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm ~/record/cam1/*
-rm ~/record/cam2/*
-rm ~/record/cam3/*
-rm ~/record/cam4/*
+rm -r -f ~/record/cam1/*
+rm -r -f ~/record/cam2/*
+rm -r -f ~/record/cam3/*
+rm -r -f ~/record/cam4/*
